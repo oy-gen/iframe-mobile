@@ -1,14 +1,20 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { SessionProvider } from 'next-auth/react';
+
+import useHydration from '../hooks/useHydration';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const hydrated = useHydration();
   return (
-    <SessionProvider session={session}>
-      <GlobalStyle></GlobalStyle>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </SessionProvider>
+    <>
+      {hydrated && (
+        <>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </>
+      )}
+    </>
   );
 }
 

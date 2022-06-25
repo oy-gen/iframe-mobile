@@ -1,23 +1,30 @@
 import styled from 'styled-components';
+import useHydration from '../hooks/useHydration';
 
 export default function Home() {
+  const hydrated = useHydration();
   return (
-    <IframeWrapper>
-      <StyledIframe src="https://capstone-project-78it4ns3z-oy-gen.vercel.app/"/>
-      </IframeWrapper>
+    <>
+      {hydrated && (
+        <IframeWrapper>
+          <StyledIframe src="https://capstone-project-bay.vercel.app/" />
+        </IframeWrapper>
+      )}
+    </>
   );
 }
 
 const StyledIframe = styled.iframe`
-border-style: none;
+  border-style: none;
   width: 375px;
   height: 667px;
+  border-radius: 20px;
 `;
 
-const IframeWrapper =styled.body `
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: black;
-`
+const IframeWrapper = styled.body`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+`;
